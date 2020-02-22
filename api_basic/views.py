@@ -13,9 +13,9 @@ def article_list(request):
         serializer=ArticleSerializer(articles,many=True)
         return JsonResponse(serializer.data,safe=False)
     elif request.method == 'POST':
-        data=JSONParser.parse(request)
+        data=JSONParser().parse(request)
         serializer=ArticleSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data,status=201)
+            return JsonResponse(serializer.data,status=200)
         return JsonResponse(serializer.errors,status=400)
